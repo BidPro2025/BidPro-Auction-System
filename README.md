@@ -2,10 +2,6 @@
 # BidPro-Auction-System
 A full-featured online auction system for managing users, products, bidding, invoicing, and more.
 
-# BidPro - Online Auction Platform
-
-A full-featured online auction system for managing users, products, bidding, invoicing, and more.
-
 ## Modules
 - User Management
 - Product Management
