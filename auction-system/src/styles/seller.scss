@@ -1,0 +1,74 @@
+.stats-card {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 15px;
+}
+
+.stats-card .card-body {
+    padding: 1.5rem;
+}
+
+.btn-custom {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.nav-pills .nav-link {
+    border-radius: 25px;
+    margin-right: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+}
+
+.badge-custom {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 15px;
+    padding: 5px 12px;
+}
+
+.accordion-button {
+    border-radius: 10px !important;
+    margin-bottom: 5px;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.listings-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.chart-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto; }
