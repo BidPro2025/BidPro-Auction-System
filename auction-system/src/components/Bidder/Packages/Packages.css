@@ -1,0 +1,27 @@
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--purple-primary);
+}
+
+.package-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-custom {
+    background-color: var(--purple-primary);
+    color: white;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: var(--purple-secondary);
+    transform: translateY(-2px); }
