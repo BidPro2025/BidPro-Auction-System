@@ -1,0 +1,9 @@
+.btn-custom {
+    background-color: var(--purple-primary);
+    color: white;
+    border-radius: 0 5px 5px 0;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: var(--purple-secondary); }
