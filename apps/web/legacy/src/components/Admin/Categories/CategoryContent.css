@@ -1,0 +1,82 @@
+.category-management {
+    padding: 20px;
+}
+
+.card {
+    border-radius: 8px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table th.ps-4 {
+    padding-left: 1.5rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.badge {
+    padding: 0.5em 0.75em;
+}
+
+.form-control,
+.form-select {
+    border-radius: 5px;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header,
+.modal-footer {
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-outline-secondary,
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-warning,
+.btn-outline-danger {
+    padding: 0.25rem 0.5rem;
+}
+
+.alert-danger {
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.position-relative .fas.fa-search {
+    right: 10px;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.d-flex.gap-1 {
+    gap: 0.5rem;
+}

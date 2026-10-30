@@ -1,0 +1,93 @@
+export const products = [
+  {
+    id: "PRD001",
+    title: "Vintage Rolex Watch",
+    description: "Rare 1960s Rolex Submariner in excellent condition.",
+    image:
+      "https://via.placeholder.com/300x200/007bff/ffffff?text=Vintage+Watch",
+    currentBid: 8500,
+    yourBid: 8200,
+    minBid: 8501,
+    timeLeftId: "timeLeft1",
+    category: "",
+    details: {
+      year: 1965,
+      condition: "Excellent",
+      movement: "Automatic",
+      material: "Stainless Steel",
+      startingBid: 5000,
+    },
+  },
+  {
+    id: "PRD002",
+    title: "Abstract Oil Painting",
+    description: "Contemporary abstract artwork by emerging artist.",
+    image: "https://via.placeholder.com/300x200/28a745/ffffff?text=Painting",
+    currentBid: 1200,
+    yourBid: 1200,
+    minBid: 1201,
+    timeLeftId: "timeLeft2",
+    category: "Art & Collectibles",
+    details: {
+      artist: "Maria Rodriguez",
+      medium: "Oil on Canvas",
+      size: '24" x 36"',
+      year: 2023,
+      startingBid: 800,
+    },
+  },
+  {
+    id: "PRD003",
+    title: "Gaming Laptop RTX 4080",
+    description: "High-end gaming laptop with latest specs.",
+    image: "https://via.placeholder.com/300x200/dc3545/ffffff?text=Laptop",
+    currentBid: 2800,
+    yourBid: null,
+    minBid: 2801,
+    timeLeftId: "timeLeft3",
+    category: "Electronics",
+    details: {
+      brand: "ASUS ROG",
+      gpu: "RTX 4080",
+      cpu: "Intel i7-13700H",
+      ram: "32GB DDR5",
+      storage: "1TB NVMe SSD",
+      startingBid: 2000,
+    },
+  },
+];
+
+export const packages = [
+  {
+    name: "Basic",
+    price: 29.99,
+    icon: "bi-star-fill",
+    iconColor: "text-warning",
+    features: ["50 Bid Credits", "Email Notifications", "Basic Support"],
+  },
+  {
+    name: "Premium",
+    price: 59.99,
+    icon: "bi-gem",
+    iconColor: "text-info",
+    features: [
+      "150 Bid Credits",
+      "SMS + Email Alerts",
+      "Priority Support",
+      "Bid History Analytics",
+    ],
+  },
+  {
+    name: "VIP",
+    price: 99.99,
+    icon: "bi-award",
+    iconColor: "text-warning",
+    features: [
+      "300 Bid Credits",
+      "All Notifications",
+      "24/7 VIP Support",
+      "Advanced Analytics",
+      "Early Access",
+    ],
+  },
+];

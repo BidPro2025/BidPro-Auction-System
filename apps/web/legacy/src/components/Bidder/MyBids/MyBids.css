@@ -1,0 +1,14 @@
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--purple-primary);
+}
+
+.table thead th {
+    font-weight: 600;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem; }

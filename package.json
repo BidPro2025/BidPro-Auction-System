@@ -1,0 +1,40 @@
+{
+  "name": "bidpro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "npm run dev --workspace apps/web",
+    "dev:api": "node scripts/api.mjs spring-boot:run",
+    "build": "npm run build --workspace apps/web",
+    "build:api": "node scripts/api.mjs package -DskipTests",
+    "lint": "npm run lint --workspace apps/web",
+    "test": "npm run lint && npm run test:web && npm run build && npm run test:api",
+    "test:web": "npm run test --workspace apps/web",
+    "test:api": "node scripts/api.mjs test",
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "test:browser": "node scripts/browser-test.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "mysql:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/mysql-local.ps1 -Action Start",
+    "mysql:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/mysql-local.ps1 -Action Stop",
+    "mysql:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/mysql-local.ps1 -Action Status",
+    "test:mysql": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test-mysql.ps1",
+    "test:communications": "node scripts/comms-browser-test.mjs",
+    "test:checkout": "node scripts/local-checkout-browser-test.mjs",
+    "test:visual": "node scripts/visual-review.mjs",
+    "test:tools": "node --test scripts/tests/*.test.mjs",
+    "backup:local": "node scripts/backup-local.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "prettier": "^3.6.2"
+  }
+}
