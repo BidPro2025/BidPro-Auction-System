@@ -1,0 +1,9 @@
+node_modules/
+.cache/
+**/target/
+**/dist/
+**/data/
+apps/web/legacy/
+package-lock.json
+apps/web/package-lock.json
+test-results/

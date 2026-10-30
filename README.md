@@ -1,126 +1,115 @@
-BidPro - Online Auction System
-A comprehensive online auction platform designed to manage users, products, bidding, invoicing, and real-time auction activities. Built with Java Spring Boot (Backend), React.js (Frontend), and MySQL (Database), BidPro supports role-based access, real-time bidding, and automated invoice generation.
-Table of Contents
+# BidPro Auction System
 
-Features
-Modules
-Admin Features
-Bidder Features
-Seller Features
+React + Spring Boot auction application with separate seller, bidder and administrator workspaces. No containers are required.
 
+## Requirements
 
-Tech Stack
-Database Design
-Getting Started
-Prerequisites
-Installation
+- Node.js 20.19+ (or a newer supported release) and npm
+- JDK 17+ and Maven 3.9+
+- MySQL only when using the optional `mysql` profile
 
-Features
+## Run locally on Windows
 
-User Management: Role-based access for Admin, Seller, and Bidder.
-Product Management: Approval, moderation, and category organization for auction items.
-Auction & Bidding: Live auctions with configurable rules.
-Invoice Generation: Auto-generated PDF invoices for auction winners.
-Notifications: Email updates for account activities and auction events.
-Real-time Updates: Future scope for real-time bidding via WebSockets.
-Search & Filter: Find products by category, price, or seller.
+Open PowerShell in `BidPro-Auction-System`, then run:
 
-Modules
-Admin Features
+```powershell
+npm.cmd install
+npm.cmd run dev
+```
 
-User Management: Approve/reject user registrations, view profiles, and monitor activity.
-Product Management: Approve/reject listings, edit details, and delete inappropriate items.
-Category Management: Add, update, or delete categories with referential integrity checks.
-Communication: Send email notifications for approvals, auction results, and updates.
-Bidding Oversight: View live/past auctions, set rules, and cancel/reset/extend auctions.
+Open **http://127.0.0.1:5173**. The backend uses port **8080**. Wait for the Spring Boot startup message before signing in. Stop both processes with **Ctrl+C**.
 
-Bidder Features
+`npm.cmd` avoids the PowerShell script execution restriction that can block `npm.ps1`. On macOS/Linux use `npm` instead. If Maven is not on PATH, use the checked-in wrapper by setting `$env:BIDPRO_USE_MAVEN_WRAPPER = "1"` before running the commands. The wrapper needs a network connection on its first run.
 
-Auction Browsing: View ongoing, upcoming, and past auctions.
-Register for Auctions: Securely participate in live bidding.
-Bid on Items: Place and modify bids before auction close.
-Search & Filter: Find products via keywords, price range, or categories.
-Invoice Access: Download PDF invoices for won auctions.
+Local development uses a persistent H2 database and creates these demo accounts:
 
-Seller Features
+| Role          | Email               | Password   |
+| ------------- | ------------------- | ---------- |
+| Administrator | admin@bidpro.local  | BidPro123! |
+| Seller        | seller@bidpro.local | BidPro123! |
+| Bidder        | bidder@bidpro.local | BidPro123! |
 
-Upload Products: Add items with name, description, category, images, start/end dates, and starting price.
-Set Starting Price: Ensure fair bidding minimums.
-Track Bids: Monitor bids on own products during auctions.
-Edit/Cancel Listings: Modify or withdraw listings before admin approval.
-Listing History: View sold, unsold, expired, and active listings.
-Dual Role: Participate as a bidder in other sellers’ auctions.
+Demo accounts and sample auctions are initialized only in the `local` profile. Public signup creates a pending seller or bidder account; sign in as the administrator to approve it before listing or bidding.
 
-Tech Stack
+## Working auction flow
 
-Backend: Java Spring Boot
-Frontend: React.js
-Database: MySQL
-Build Tools: Maven
-Other Tools:
-iText for PDF generation
-SMTP/SendGrid for email notifications
+1. Sign in as a seller and submit a listing with its category, prices and auction dates. Upload optional images before approval.
+2. Sign in as an administrator and approve the listing. Approval creates its auction.
+3. Sign in as a bidder and place bids while the auction is active. The API validates the minimum price, increment, account status and ownership.
+4. After the end time, the winner, seller or administrator can settle the auction to create an invoice. Administrators can close an active auction early.
+5. Retrieve the invoice from the seller or bidder workspace and download its PDF.
+6. As the buyer, use **Open local test checkout** to simulate a failed or successful payment. The invoice and PDF clearly identify the result as a local test with no money transferred.
+7. Use **Messages** for private support conversations and **Notifications** for account and auction updates.
+8. Use **Forgot password?** to request a reset. In local mode, an administrator can preview its email under **Email outbox** and open the single-use reset link in a signed-out browser.
 
+## Commands
 
+```powershell
+npm.cmd run dev:web       # Frontend only
+npm.cmd run dev:api       # Backend only
+npm.cmd test              # Lint, web tests, production build, backend tests
+npm.cmd run test:smoke    # End-to-end API checks against the running local app
+npm.cmd run test:browser  # Core browser checks against the running local app
+npm.cmd run test:communications # Messaging, notifications and recovery browser checks
+npm.cmd run test:checkout # Local payment checkout browser checks
+npm.cmd run test:tools    # Offline backup safety/integrity checks
+npm.cmd run backup:local  # Offline H2 + uploads backup; stop API first
+npm.cmd run test:mysql   # Full backend suite against isolated real MySQL (Windows)
+npm.cmd run build        # Frontend production output: apps/web/dist
+npm.cmd run build:api    # Backend JAR: apps/api/target
+```
 
-Database Design
+Browser verification requires Chromium once:
 
-users: Stores user information with roles (Admin, Seller, Bidder) and status.
-products: Auction items linked to users and categories.
-categories: Product classifications.
-auctions: Auction details with start/end times and rules.
-bids: Bid details with timestamps and user/product references.
-invoices: Auction win transaction records.
+```powershell
+$env:PLAYWRIGHT_BROWSERS_PATH = "$PWD\.cache\ms-playwright"
+npx.cmd playwright install chromium
+npm.cmd run test:browser
+```
 
-Getting Started
-Prerequisites
+The smoke check creates uniquely named test records in the local database and includes a short auction that closes during the check. Browser tests also create uniquely named local records. Run these checks against a development instance.
 
-Java: JDK 17 or higher
-Maven: For building the backend
-Node.js: For running the React frontend
-MySQL: Database server
-Git: For cloning the repository
+## Configuration
 
-Installation
+The frontend defaults to `/api` and uses the Vite development proxy. Copy `apps/web/.env.example` to `apps/web/.env` only if custom settings are needed. `API_PROXY_TARGET` changes the proxy destination; `VITE_API_BASE_URL` changes the browser API URL.
 
-Clone the Repository
-git clone https://github.com/<your-org>/BidPro-Auction-System.git
-cd BidPro-Auction-System
+The API defaults to `local`. For MySQL, configure `SPRING_PROFILES_ACTIVE=mysql`, `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` and `JWT_SECRET` using your environment. See `apps/api/src/main/resources/application-mysql.properties` for exact variables. Use a strong private JWT secret, at least 32 bytes. MySQL does not seed demonstration accounts. Data and uploads are local runtime files and are excluded from Git.
 
+For the first MySQL administrator, set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before starting the API. The bootstrap creates a missing administrator and preserves existing accounts. Remove these variables after the first successful startup.
 
-Backend Setup
+## Code organization
 
-Ensure Java and Maven are installed.
-Build and run the Spring Boot application:mvn clean install
-mvn spring-boot:run
+- `apps/web/src`: active React application, grouped into app, features and shared modules
+- `apps/api`: Spring Boot controllers, transactional services, DTOs, persistence and tests
+- `scripts`: development launcher and full-stack checks
+- `docs`: [architecture](docs/architecture.md) and [API guide](docs/api.md)
+- `apps/web/legacy`: preserved original prototype for reference
 
+Local development includes a clearly labeled test checkout and administrator email preview, so the complete flow can be exercised without provider credentials. Local test payments transfer no money and are disabled outside the local profile.
 
+The Razorpay integration supports real hosted checkout, signed callbacks and webhooks. SMTP delivery includes queued messages and retries. To enable your accounts later, configure the root `.env` using [payment setup](docs/payments.md) and [email and recovery setup](docs/email-and-recovery.md). The launcher loads this file. Real provider credentials and real transactions are not used by automated tests.
 
+For workspace-only MySQL setup and database verification, see [MySQL instructions](docs/mysql.md).
 
-Frontend Setup
+See [verification results](docs/verification.md) for the tested workflows and remaining integration limits.
 
-Navigate to the frontend directory:cd frontend
+## Engineering review and operations
 
+The [enterprise gap register](docs/enterprise-gap-audit.md) records the prioritized
+findings, fixes, and release work still required. The [operations runbook](docs/operations.md)
+covers production configuration, health checks, backups, incidents and rollback.
+The hardened `production` profile includes MySQL, validates the existing schema,
+requires verified TLS settings and rejects local/demo configuration. The `mysql`
+profile alone remains a development/integration option that updates its schema.
 
-Install dependencies and start the React app:npm install
-npm start
+Catalog browsing now uses database pagination, filtering and sorting. Expired
+auctions with winning bids settle automatically in bounded batches; manual
+settlement remains idempotent. Successful account, bidding, settlement and payment
+changes write transactional audit records. Sign-out revokes the presented token;
+the profile also offers sign-out from all devices. Existing sessions require one
+new sign-in after the JWT hardening update.
 
-
-
-
-Database Setup
-
-Create a MySQL database named bidpro.
-Run the provided SQL scripts in the database directory to set up the schema.
-
-
-Configuration
-
-Update application.properties in the backend for MySQL credentials and SMTP/SendGrid settings.
-Ensure environment variables or configuration files are set for sensitive data (e.g., API keys).
-
-
-Access the Application
-
-Backend API: http://localhost:8080
-Frontend: http://localhost:3000
+GitHub Actions and Dependabot configurations are included; hosted CI runs and
+branch protection take effect after the repository is pushed and configured.
+Development builds use `apps/api/target-dev`, separate from test/package output
+under `apps/api/target`, so running backend tests cannot rewrite the dev classes.

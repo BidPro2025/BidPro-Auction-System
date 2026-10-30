@@ -1,0 +1,27 @@
+:root {
+    --purple-primary: #6B46C1;
+    --purple-secondary: #553C9A;
+}
+
+.main-container {
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--purple-secondary);
+}
+
+.btn-primary {
+    background-color: var(--purple-primary);
+    border-color: var(--purple-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--purple-secondary);
+    border-color: var(--purple-secondary); }
